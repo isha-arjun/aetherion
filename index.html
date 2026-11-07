@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AETHERION // SYSTEM ONLINE</title><link rel="stylesheet" href="./style.css"></head>
 <body>
-<header><div class="brand"><b>A</b><span>AETHERION<small>ADVANCED ENGINEERING INTERFACE</small></span></div><div class="status"><i></i><span id="state">SYSTEM STANDBY</span></div><label>PROTOTYPE <strong>003</strong></label></header>
+<header><div class="brand"><b>A</b><span>AETHERION<small>ADVANCED ENGINEERING INTERFACE</small></span></div><div class="status"><i></i><span id="state">SYSTEM STANDBY</span></div><label>PROTOTYPE <strong>004</strong></label></header>
 <nav id="modules"><button class="active" data-module="reactor">01 REACTOR LAB</button><button data-module="spatial">02 SPATIAL TABLE</button><button data-module="cosmos">03 COSMIC NAV</button><button data-module="intelligence">04 INTELLIGENCE</button><button data-module="archive">05 BLACK BOX</button></nav>
 <main>
 <aside class="panel left">
 <h3>OPTICAL INTERFACE</h3><div class="cam"><video id="cam" autoplay playsinline muted></video><canvas id="hands"></canvas><span id="camstate">CAMERA OFFLINE</span></div>
-<button id="start" class="primary">INITIALIZE HAND TRACKING ↗</button><p id="note">Hand landmarks are processed locally in this browser.</p>
+<button id="start" class="primary">INITIALIZE OPTICAL LINK ↗</button><p id="note">Camera tracking runs locally in this browser. Open your palm after connecting to boot the environment.</p><button id="guide" class="secondary">⌘ OPEN PILOT GUIDE</button><div id="guidePanel" class="dataCard hidden"><b>MISSION CONTROL // QUICK GUIDE</b><p>1. Initialize the optical link and allow camera access.</p><p>2. Hold an open palm in view to launch the boot sequence.</p><p>3. Point to move the cursor. Pinch thumb + index to click.</p><p>4. Pinch and move to rotate. Use two hands to scale.</p><p>5. Swipe an open palm sideways to change modules.</p><p>6. Try voice: “open spatial table”, “show Kepler”, “run diagnostics”, “pulse”.</p><p>Mouse and keyboard remain available. Voice recognition depends on browser support.</p></div>
 <hr><h3>HAND CONTROL</h3><p>✳ <b>PINCH + MOVE</b><small>Grab, rotate and manipulate objects</small></p><p>⟷ <b>TWO-HAND SPREAD</b><small>Scale the active object</small></p><p>☝ <b>POINT + PINCH</b><small>Move the on-screen hand cursor; pinch to activate controls</small></p>
 <hr><h3>LIVE INPUT</h3><p>HANDS DETECTED <strong id="count">0</strong></p><p>ACTIVE GESTURE <strong id="gesture">—</strong></p><p>HAND CURSOR <strong id="cursorState">OFFLINE</strong></p>
 <hr><h3>VOICE INTERFACE</h3><button id="voice" class="secondary">◉ ENABLE VOICE COMMANDS</button><p id="voiceStatus" class="muted">Voice control is off.</p>
@@ -18,5 +18,5 @@
 <div id="cosmosControls" class="moduleControls hidden"><h3>COSMIC NAVIGATION</h3><h2>STELLAR CARTOGRAPHY</h2><p class="muted">Explore a procedural star field. Pinch and move to steer the view; use hand pinch on planets to select them.</p><div id="planetList"></div><button class="secondary" id="wormhole">◉ INITIATE WORMHOLE TRANSIT</button><div id="planetInfo" class="dataCard">TARGET: SOL SYSTEM<br>STATUS: AWAITING SELECTION</div></div>
 <div id="intelligenceControls" class="moduleControls hidden"><h3>INTELLIGENCE CORE</h3><h2>LOCAL SYSTEM ORCHESTRATOR</h2><div class="corePulse">AE / ONLINE</div><div id="intelState" class="dataCard">SYSTEM AWAKE<br>SUBSYSTEMS CONNECTED: 5<br>EXTERNAL AI: NOT CONNECTED</div><button class="secondary" id="systemScan">⌕ RUN SYSTEM SCAN</button><button class="secondary" id="runSequence">▶ RUN DEMONSTRATION SEQUENCE</button><div id="intelLog" class="log"></div></div>
 <div id="archiveControls" class="moduleControls hidden"><h3>BLACK BOX ARCHIVE</h3><h2>EXPERIMENTAL RECORDS</h2><p class="muted">Discoveries in the simulation unlock records here.</p><div id="archiveList"></div><div id="archiveDetail" class="dataCard">SELECT AN UNLOCKED RECORD</div></div>
-</aside></main><footer>AETHERION LABS <span>PROTOTYPE 003 · ALL SYSTEMS SIMULATED</span></footer><div id="handCursor"></div>
+</aside></main><footer>AETHERION LABS <span>PROTOTYPE 004 · INTERACTIVE SIMULATION</span></footer><div id="handCursor"></div>
 <script type="module" src="./main.js"></script></body></html>
