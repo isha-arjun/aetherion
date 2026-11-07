@@ -1,41 +1,61 @@
-# AETHERION — Prototype 003
+# AETHERION — Prototype 005
 
-A cinematic, browser-based engineering environment. Five interconnected simulated subsystems share one 3D scene and one webcam hand-control layer.
+A cinematic, browser-based interactive engineering environment designed as a showcase prototype. Five connected simulated subsystems share one 3D environment, webcam hand tracking, and optional voice commands.
+
+## First launch
+
+1. Open the project in VS Code and run `index.html` with Live Server.
+2. Select **INITIALIZE OPTICAL LINK** and allow camera access.
+3. Hold an **open palm** clearly in view of the camera.
+4. AETHERION runs its cinematic boot sequence: reactor, spatial table, cosmic navigation, intelligence core, and black box.
+5. Select **OPEN PILOT GUIDE** at any time for an in-app control reference.
 
 ## Modules
+
 1. **Reactor Laboratory** — adjust simulated output and containment, trigger energy pulses, pause/resume.
-2. **Spatial Engineering Table** — manipulate a 3D modular assembly with hand rotation and two-hand scaling; explode/reassemble and inspect components.
-3. **Cosmic Navigation** — explore a procedural star field, select planets with the hand cursor, inspect planetary records and activate a simulated wormhole.
-4. **Intelligence Core** — local state-machine orchestration, diagnostic scan, event log and a demonstration sequence. No external AI model or API.
-5. **Black Box** — records unlock when simulated discoveries occur.
+2. **Spatial Engineering Table** — rotate a 3D modular assembly, select components using the UI or hand pinch, explode/reassemble and inspect components.
+3. **Cosmic Navigation** — explore a procedural star field, select three fictional showcase worlds, inspect target records and activate a simulated wormhole.
+4. **Intelligence Core** — local orchestration state, diagnostic scan, event log and a guided demonstration sequence. No external AI model or API.
+5. **Black Box** — unlockable experiment records populated by discoveries made in the other modules.
 
-## Signature interaction system
-Hand tracking is the primary interaction layer:
-- **Point** with the index fingertip to move the on-screen cursor.
-- **Pinch** thumb and index finger to activate interface buttons and controls.
-- **Pinch + move** to rotate the reactor, assembly or cosmic view.
-- **Two-hand spread / close** to scale the active reactor or assembly.
-- **Open-palm swipe left/right** to switch between the five modules.
-- **Thumbs-up** triggers an energy pulse.
-- **Closed fist** toggles simulation pause/resume.
-- **V sign** performs a context-sensitive action: deploy a satellite, explode the assembly, or activate the wormhole.
-- Normal mouse/touch controls remain available as a fallback. Gesture detection depends on camera angle, lighting and hand visibility; gestures can occasionally be misclassified.
+## Hand controls
 
-## Expanded voice commands
-- Navigation: "reactor lab", "spatial table", "cosmic navigation", "intelligence core", "black box archive".
-- Reactor: "pulse", "fire", "reset core", "pause simulation", "resume simulation", "power up", "power down".
-- Objects: "add satellite", "add orb", "clear additions".
-- Spatial table: "explode assembly", "reassemble", "inspect component".
-- Cosmic navigation: "Kepler", "Nereid", "Pyra", "wormhole".
-- Intelligence: "run scan", "diagnostics", "demonstration sequence".
+- **Open palm before boot:** launch the cinematic startup sequence.
+- **Index finger:** move the on-screen cursor.
+- **Pinch thumb + index:** click buttons and controls.
+- **Pinch + move:** rotate the active 3D environment.
+- **Two hands:** spread/close to scale the reactor or assembly.
+- **Open-palm swipe left/right:** switch modules after boot.
+- **Thumbs-up:** trigger an energy pulse.
+- **Closed fist:** pause/resume the simulation.
+- **V sign:** context action — deploy a satellite, explode the assembly, or activate the wormhole.
 
-Voice recognition depends on browser support and may use the browser's speech service.
-
-## Run locally
-Open the folder in VS Code and use Live Server on `index.html`. Allow camera permission. Webcam access requires localhost or another secure context. First load downloads Three.js, MediaPipe and its hand-landmarker model from public CDNs, so internet is needed initially.
+Hand recognition is heuristic and depends on camera angle, lighting, distance and hand visibility. A mouse and keyboard remain available as fallback controls.
 
 ## Voice commands
-Optional browser speech recognition: pulse, reset, satellite, orb, explode, reassemble, wormhole, reactor, spatial, cosmic, intelligence, archive, scan, pause, resume, left, right, power up, power down. Browser support and recognition quality vary. Voice recognition may use the browser's speech service.
+
+Use **ENABLE VOICE COMMANDS** and allow microphone access. Example phrases:
+
+- Navigation: “open reactor”, “open spatial table”, “cosmic navigation”, “intelligence core”, “black box”.
+- Spatial: “explode assembly”, “reassemble”, “inspect component”.
+- Cosmic: “show Kepler”, “Nereid”, “Pyra”, “wormhole”.
+- Intelligence: “run diagnostics”, “system scan”, “demonstration sequence”.
+- Reactor: “pulse”, “reset core”, “pause simulation”, “resume simulation”, “power up”, “power down”.
+- Objects: “add satellite”, “add orb”, “clear additions”.
+- Help: “show guide” or “commands”.
+
+The recognizer uses the browser's Web Speech API where available. Browser support, microphone permissions, internet connection and recognition quality vary. Chrome is recommended. It may rely on the browser's speech service; voice audio is not guaranteed to be processed locally.
+
+## Feedback
+
+Interactions trigger a visual response and a short synthesized UI tone. On devices/browser combinations that support the Vibration API, compatible interactions also request a brief vibration. Most desktop computers do not have vibration hardware, so the visual/audio feedback is the fallback.
+
+## Run locally
+
+Use VS Code Live Server on `index.html`. Camera access requires localhost or HTTPS; opening the file directly with `file://` will not work. The first launch downloads Three.js, MediaPipe and its hand-landmarker model from public CDNs, so an internet connection is required.
 
 ## Privacy and simulation boundaries
-Camera frames are processed locally in the browser by MediaPipe; this app does not upload or record camera video. Voice is optional and separate. The interface uses local JavaScript state machines, not a paid AI API. Reactor output, containment, planetary data and all engineering telemetry are fictional visual simulation values, not real measurements, engineering advice or an operational reactor model.
+
+Camera frames are processed locally in the browser by MediaPipe; this app does not upload or record camera video. Voice recognition is optional and may use the browser's speech service. The interface uses local JavaScript state and procedural 3D scenes, not a connected AI model.
+
+**Important:** This is a cinematic interactive showcase, not yet an engineering simulator. Reactor output, containment, planetary data, materials, component properties and all engineering telemetry are fictional demonstration values. They must not be used for real design, safety analysis, manufacturing, or operational decisions.
