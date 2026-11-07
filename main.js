@@ -27,6 +27,54 @@ function reset(){rotation=0;tilt=0;scale=1;prev=null;twoPrev=null}
 function emitPulse(){pulseUntil=clock.getElapsedTime()+1.5;$('coreState').textContent='ENERGY SURGE DETECTED';setTimeout(()=>$('coreState').textContent='CONTAINMENT STABLE',1600)}
 function setSimulation(on){simRunning=on;$('simState').textContent=on?'SIMULATION RUNNING':'SIMULATION PAUSED';$('simulation').textContent=on?'Ⅱ PAUSE SIMULATION':'▶ RESUME SIMULATION';$('fieldStatus').textContent=on?'NOMINAL':'PAUSED'}
 function updateControls(){const p=Number($('power').value),c=Number($('containment').value);$('powerText').textContent=p+'%';$('containmentText').textContent=c+'%';$('output').textContent=(p*.067).toFixed(2)+' TW';$('outputBar').style.width=p+'%';$('containmentVal').textContent=c.toFixed(1)+'%';$('containmentBar').style.width=c+'%';$('harmonics').textContent=p>90?'ELEVATED':p<25?'LOW':'STABLE';$('harmonicsBar').style.width=Math.max(15,100-Math.abs(p-65)*.7)+'%';$('fieldStatus').textContent=c<75?'CAUTION':simRunning?'NOMINAL':'PAUSED';$('coreState').textContent=c<75?'FIELD INSTABILITY':p>90?'HIGH OUTPUT':'CONTAINMENT STABLE';coreMat.emissiveIntensity=1.2+p/45;light.intensity=65+p*.55}
-function voiceCommand(raw){const s=raw.toLowerCase();$('voiceStatus').textContent='HEARD: “'+raw+'”';if(s.includes('pulse')||s.includes('fire'))emitPulse();else if(s.includes('recenter')||s.includes('reset'))reset();else if(s.includes('satellite'))addSatellite();else if(s.includes('orb'))addOrb();else if(s.includes('clear'))clearObjects();else if(s.includes('pause'))setSimulation(false);else if(s.includes('resume')||s.includes('start simulation'))setSimulation(true);else if(s.includes('left'))rotation-=.45;else if(s.includes('right'))rotation+=.45;else if(s.includes('up'))tilt-=.25;else if(s.includes('down'))tilt+=.25;else if(s.includes('increase power')){$('power').value=Math.min(100,Number($('power').value)+10);updateControls()}else if(s.includes('decrease power')){$('power').value=Math.max(10,Number($('power').value)-10);updateControls()}else if(s.includes('help'))$('voiceStatus').textContent='Try: pulse, recenter, add satellite, add orb, rotate left/right, pause simulation, increase/decrease power.';else $('voiceStatus').textContent='COMMAND NOT RECOGNIZED · SAY “HELP”'}
-function toggleVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$('voiceStatus').textContent='Speech recognition is not supported in this browser. Try current Chrome.';return}if(voiceOn){voiceRecognition.stop();voiceOn=false;$('voice').textContent='◉ ENABLE VOICE COMMANDS';$('voiceStatus').textContent='Voice control is off.';return}voiceRecognition=new SR();voiceRecognition.continuous=true;voiceRecognition.interimResults=false;voiceRecognition.lang='en-US';voiceRecognition.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)voiceCommand(e.results[i][0].transcript)};voiceRecognition.onerror=e=>{$('voiceStatus').textContent='VOICE ERROR: '+e.error};voiceRecognition.onend=()=>{if(voiceOn){try{voiceRecognition.start()}catch(_){}}};try{voiceRecognition.start();voiceOn=true;$('voice').textContent='■ DISABLE VOICE COMMANDS';$('voiceStatus').textContent='Listening. Say “help” for commands.'}catch(e){$('voiceStatus').textContent='Could not start voice recognition: '+e.message}}
+function voiceCommand(raw){
+ const original=raw.trim(),s=original.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+ $('voiceStatus').textContent='HEARD: “'+original+'”';
+ const has=(...terms)=>terms.some(term=>s.includes(term));
+ if(has('pulse','fire','energy burst'))emitPulse();
+ else if(has('recenter','reset','center core','centre core'))reset();
+ else if(has('satellite','add satellite'))addSatellite();
+ else if(has('energy orb','add orb','orb'))addOrb();
+ else if(has('clear','remove additions'))clearObjects();
+ else if(has('pause','freeze simulation'))setSimulation(false);
+ else if(has('resume','continue simulation','start simulation'))setSimulation(true);
+ else if(has('left','turn left'))rotation-=.45;
+ else if(has('right','turn right'))rotation+=.45;
+ else if(has('up','tilt up'))tilt-=.25;
+ else if(has('down','tilt down'))tilt+=.25;
+ else if(has('increase power','power up','more power')){$('power').value=Math.min(100,Number($('power').value)+10);updateControls()}
+ else if(has('decrease power','power down','less power')){$('power').value=Math.max(10,Number($('power').value)-10);updateControls()}
+ else if(has('help','commands'))$('voiceStatus').textContent='Try short commands: “pulse”, “reset”, “satellite”, “orb”, “left”, “right”, “pause”, “resume”, “power up”.';
+ else $('voiceStatus').textContent='I heard “'+original+'” but did not match a command. Try one short command.';
+}
+function toggleVoice(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){$('voiceStatus').textContent='Speech recognition is unavailable in this browser. Use a recent version of Chrome.';return}
+ if(voiceOn){voiceOn=false;voiceRecognition.stop();$('voice').textContent='◉ ENABLE VOICE COMMANDS';$('voiceStatus').textContent='Voice control is off.';return}
+ voiceRecognition=new SR();
+ voiceRecognition.continuous=true;
+ voiceRecognition.interimResults=true;
+ voiceRecognition.maxAlternatives=3;
+ voiceRecognition.lang='en-IN';
+ voiceRecognition.onresult=e=>{
+  for(let i=e.resultIndex;i<e.results.length;i++){
+   const result=e.results[i],heard=result[0]?.transcript||'';
+   if(!result.isFinal){$('voiceStatus').textContent='HEARING: “'+heard+'”';continue}
+   const candidates=Array.from(result).sort((a,b)=>(b.confidence||0)-(a.confidence||0));
+   const best=candidates[0];
+   if(best && best.transcript.trim())voiceCommand(best.transcript);
+  }
+ };
+ voiceRecognition.onerror=e=>{
+  $('voiceStatus').textContent=e.error==='no-speech'?'No speech detected. Try speaking closer to the microphone.':e.error==='not-allowed'?'Microphone permission was blocked. Allow microphone access in the browser address bar.':'VOICE ERROR: '+e.error;
+ };
+ voiceRecognition.onend=()=>{
+  if(voiceOn){try{voiceRecognition.start()}catch(_){}}
+ };
+ try{
+  voiceRecognition.start();voiceOn=true;
+  $('voice').textContent='■ DISABLE VOICE COMMANDS';
+  $('voiceStatus').textContent='Listening in English (India). Use short commands; say “help” for examples.';
+ }catch(e){voiceOn=false;$('voiceStatus').textContent='Could not start voice recognition: '+e.message}
+}
 $('start').onclick=start;$('reset').onclick=reset;$('pulse').onclick=emitPulse;$('simulation').onclick=()=>setSimulation(!simRunning);$('addSatellite').onclick=addSatellite;$('addOrb').onclick=addOrb;$('clearObjects').onclick=clearObjects;$('voice').onclick=toggleVoice;$('power').oninput=updateControls;$('containment').oninput=updateControls;updateControls();
