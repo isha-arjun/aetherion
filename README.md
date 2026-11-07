@@ -1,47 +1,26 @@
-# AETHERION — Prototype 002
+# AETHERION — Prototype 003
 
-A cinematic, browser-based engineering interface with real-time webcam hand tracking, a procedural 3D reactor, optional voice commands, additional 3D objects, and adjustable simulated reactor telemetry.
+A cinematic, browser-based engineering environment. Five interconnected simulated subsystems share one 3D scene and one webcam hand-control layer.
 
-## Features
-- Real-time hand landmark tracking using MediaPipe Tasks Vision
-- Pinch thumb + index finger and move to rotate the reactor
-- Two-hand distance gesture to scale the reactor
-- Optional voice commands (browser Web Speech API)
-- Add orbiting satellites and energy orbs to the 3D scene
-- Adjustable simulated core output and containment parameters
-- Pause/resume simulation, recenter core, and trigger an energy pulse
-- Camera frames are processed locally in the browser; no camera video upload or recording by this app
-- No AI API keys
+## Modules
+1. **Reactor Laboratory** — adjust simulated output and containment, trigger energy pulses, pause/resume.
+2. **Spatial Engineering Table** — manipulate a 3D modular assembly with hand rotation and two-hand scaling; explode/reassemble and inspect components.
+3. **Cosmic Navigation** — explore a procedural star field, select planets with the hand cursor, inspect planetary records and activate a simulated wormhole.
+4. **Intelligence Core** — local state-machine orchestration, diagnostic scan, event log and a demonstration sequence. No external AI model or API.
+5. **Black Box** — records unlock when simulated discoveries occur.
+
+## Hand controls
+- Point with the index finger to move the on-screen cursor.
+- Pinch thumb and index finger to activate interface buttons and controls.
+- Pinch and move to rotate the reactor, assembly or cosmic view.
+- Use two hands and spread/bring them together to scale the active reactor or assembly.
+- The hand cursor and gestures work across the interface; normal mouse/touch input remains available as a fallback.
 
 ## Run locally
-1. Open this project folder in Visual Studio Code.
-2. Use Live Server to open `index.html`.
-3. Click **INITIALIZE CAMERA** and grant camera permission.
-4. Optional: click **ENABLE VOICE COMMANDS** and grant microphone permission if the browser asks.
-
-Camera access requires a secure context such as `localhost`; opening the HTML directly as a `file://` URL may not work.
+Open the folder in VS Code and use Live Server on `index.html`. Allow camera permission. Webcam access requires localhost or another secure context. First load downloads Three.js, MediaPipe and its hand-landmarker model from public CDNs, so internet is needed initially.
 
 ## Voice commands
-Say **help** for the in-app command reminder. Supported examples:
-- "Pulse"
-- "Recenter"
-- "Add satellite"
-- "Add orb"
-- "Clear additions"
-- "Rotate left" / "Rotate right"
-- "Pause simulation" / "Resume simulation"
-- "Increase power" / "Decrease power"
+Optional browser speech recognition: pulse, reset, satellite, orb, explode, reassemble, wormhole, reactor, spatial, cosmic, intelligence, archive, scan, pause, resume, left, right, power up, power down. Browser support and recognition quality vary. Voice recognition may use the browser's speech service.
 
-Voice recognition depends on browser support. The Web Speech API may send audio to a browser speech-recognition service; voice is off until explicitly enabled. Camera tracking remains separate and local to this app.
-
-## Technology
-- Three.js for real-time 3D rendering
-- MediaPipe Hand Landmarker for webcam-based gesture tracking
-- Browser Web Speech API for optional voice commands
-- JavaScript, HTML and CSS
-
-## Network and privacy
-On first load, the app downloads Three.js, MediaPipe and the hand-landmarker model from public CDNs, so an internet connection is required. This app does not upload or record camera video. Voice recognition is a separate optional browser feature and may use the browser provider's service.
-
-## Prototype status
-AETHERION is an experimental visual simulation. Reactor telemetry is fictional UI data, not real engineering measurements or a model of an operational reactor. Tracking quality depends on lighting, camera angle and hand visibility.
+## Privacy and simulation boundaries
+Camera frames are processed locally in the browser by MediaPipe; this app does not upload or record camera video. Voice is optional and separate. The interface uses local JavaScript state machines, not a paid AI API. Reactor output, containment, planetary data and all engineering telemetry are fictional visual simulation values, not real measurements, engineering advice or an operational reactor model.
