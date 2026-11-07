@@ -32,3 +32,22 @@ nav button.active{box-shadow:inset 0 -2px #70e5ff,0 0 20px #31bde822;text-shadow
 .dataCard{box-shadow:inset 0 0 25px #2bcfff0b;border-color:#39738a99}
 .itemButton:disabled{opacity:.48;cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* PROTOTYPE 005 — launch theatre, pilot guide and tactile feedback */
+.boot-overlay{position:fixed;inset:0;z-index:45;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:radial-gradient(ellipse at center,#10364deF 0%,#040c18f7 55%,#01040bf9 100%);pointer-events:none;animation:bootFade .45s ease-out}
+.boot-mark{width:82px;height:82px;display:grid;place-items:center;border:1px solid #8cefff;border-radius:50%;font:52px 'Barlow Condensed';color:#d7fbff;text-shadow:0 0 25px #67eaff;box-shadow:0 0 25px #3dd8ff66,inset 0 0 25px #3dd8ff44;animation:bootCore 1.3s ease-in-out infinite}
+.boot-kicker{font-size:9px;letter-spacing:4px;color:#8ed8ed}
+.boot-title{font:600 clamp(28px,5vw,54px) 'Barlow Condensed';letter-spacing:5px;color:#e5fbff;text-shadow:0 0 25px #4bcfff88}
+.boot-progress{width:min(280px,65vw);height:2px;background:#24445a;overflow:hidden}
+.boot-progress i{display:block;width:35%;height:100%;background:#9cf4ff;box-shadow:0 0 14px #70e5ff;animation:bootTravel 2.4s ease-in-out infinite}
+.boot-sub{font-size:8px;letter-spacing:2px;color:#72aabc}
+@keyframes bootCore{0%,100%{transform:scale(.96);box-shadow:0 0 20px #3dd8ff55,inset 0 0 15px #3dd8ff33}50%{transform:scale(1.06);box-shadow:0 0 48px #3dd8ffbb,inset 0 0 30px #3dd8ff66}}
+@keyframes bootTravel{0%{transform:translateX(-120%)}100%{transform:translateX(380%)}}
+@keyframes bootFade{from{opacity:0}to{opacity:1}}
+#guidePanel{font-size:8px;line-height:1.6;max-height:250px;overflow:auto}
+#guidePanel b{color:#8cf0ff;letter-spacing:1px}
+#guidePanel p{font-size:8px!important;line-height:1.55;margin:7px 0!important}
+body.feedback-hit .viewport{box-shadow:inset 0 0 120px #3bcfff22,0 0 28px #45dfff22}
+body.feedback-hit .brand>b{box-shadow:0 0 30px #70e5ffcc}
+#voiceStatus{min-height:24px;overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){.boot-mark,.boot-progress i{animation:none!important}}
