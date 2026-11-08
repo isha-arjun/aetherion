@@ -1,4 +1,4 @@
-# AETHERION — Prototype 005
+# AETHERION — Prototype 007
 
 A cinematic, browser-based interactive engineering environment designed as a showcase prototype. Five connected simulated subsystems share one 3D environment, webcam hand tracking, and optional voice commands.
 
@@ -9,6 +9,10 @@ A cinematic, browser-based interactive engineering environment designed as a sho
 3. Hold an **open palm** clearly in view of the camera.
 4. AETHERION runs its cinematic boot sequence: reactor, spatial table, cosmic navigation, intelligence core, and black box.
 5. Select **OPEN PILOT GUIDE** at any time for an in-app control reference.
+
+## Cinematic presentation (Prototype 007)
+
+Cinematic Mode adds a distant ringed world, a moon, a drifting debris belt, layered orbital arcs, atmospheric light and a restrained camera drift. The background environment appears in Cinematic Mode to preserve performance during normal interaction. Each module uses a slightly different camera framing. The scene is procedural and illustrative, not a real astronomical rendering.
 
 ## Modules
 
