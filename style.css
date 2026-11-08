@@ -115,3 +115,7 @@ body.cinema-mode .viewport .foot{background:linear-gradient(90deg,#020914bb,tran
 body.cinema-mode .viewport #scene canvas{filter:drop-shadow(0 0 30px #48dfff40) saturate(1.18)}
 body.cinema-mode .moduleOverlay .tag,body.cinema-mode .moduleOverlay .hint{backdrop-filter:blur(18px);border-color:#6edfff55}
 @media(max-width:700px){.cinema-readout{left:12px;right:12px;top:72px;font-size:7px;letter-spacing:1px}}
+
+
+/* FIX: boot overlay must respect the shared hidden utility class */
+.boot-overlay.hidden{display:none!important}
