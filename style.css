@@ -103,3 +103,15 @@ body.cinema-mode .viewport:after{background:radial-gradient(ellipse at center,tr
 .viewport.module-cut #scene{animation:moduleCut .65s cubic-bezier(.2,.75,.25,1)}
 @keyframes moduleCut{0%{opacity:.3;filter:blur(5px);transform:scale(1.025)}100%{opacity:1;filter:blur(0);transform:scale(1)}}
 @media(max-width:800px){.header-actions{gap:7px}.header-actions label{display:none}.cinema-toggle{padding:8px;font-size:8px}}
+
+
+/* PROTOTYPE 007 — deep-space cinematic presentation */
+.cinema-readout{display:none;position:fixed;z-index:12;top:78px;left:28px;right:28px;justify-content:space-between;align-items:center;pointer-events:none;color:#8dcfe2;font:8px 'Barlow Condensed',sans-serif;letter-spacing:2.2px;text-shadow:0 0 12px #38cfff66;opacity:0;transition:opacity .5s}
+.cinema-readout.visible{display:flex;opacity:.82}
+.cinema-readout b{font-weight:500;color:#c5f5ff}
+body.cinema-mode .viewport{box-shadow:inset 0 70px 60px -60px #01040c,inset 0 -70px 60px -60px #01040c,inset 0 0 170px #000}
+body.cinema-mode .viewport .caption{border-bottom-color:#5bcde833;background:linear-gradient(90deg,#020914cc,transparent 45%,#02091499)}
+body.cinema-mode .viewport .foot{background:linear-gradient(90deg,#020914bb,transparent 45%,#020914bb)}
+body.cinema-mode .viewport #scene canvas{filter:drop-shadow(0 0 30px #48dfff40) saturate(1.18)}
+body.cinema-mode .moduleOverlay .tag,body.cinema-mode .moduleOverlay .hint{backdrop-filter:blur(18px);border-color:#6edfff55}
+@media(max-width:700px){.cinema-readout{left:12px;right:12px;top:72px;font-size:7px;letter-spacing:1px}}
