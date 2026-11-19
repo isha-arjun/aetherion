@@ -60,3 +60,10 @@ ASTRA currently models a massless spacecraft under a spherical point-mass Earth.
 The Hohmann transfer calculator assumes circular coplanar orbits and ideal instantaneous impulses. These are textbook preliminary-design models, not operational manoeuvre recommendations.
 
 This is an educational engineering project, not flight-qualified software. Do not use its outputs for real mission design, navigation, safety-critical analysis, or operational decisions. Model expansion requires independent reference comparisons, numerical convergence studies, and documented validation.
+
+
+## Learning Mode
+
+Learning Mode is a nine-stage, 36-lesson course from absolute beginner foundations through programming, practical mathematics, electronics, mechanical design, robotics and control, AI, systems engineering, and research preparation. Each lesson includes a focused mission, a mastery check and a free reference resource. Lesson completion and notes are stored locally in the browser.
+
+The final stage develops research readiness: paper reading, literature reviews, experimental design, reproducibility and proposal writing. This is not a PhD, degree, accreditation or guarantee of university admission. Doctoral study requires formal admission, advanced subject depth, original supervised research and institutional assessment. Learners should build evidence through projects, tests, reports and feedback from qualified mentors.
