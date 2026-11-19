@@ -1,4 +1,5 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import {EARTH,gravitationalAcceleration,velocityVerlet,circularOrbitSpeed,escapeSpeed,specificOrbitalEnergy,orbitalElements,hohmannTransfer} from './engineering/src/orbital-mechanics.js';
 let FilesetResolver,HandLandmarker;
 const $=id=>document.getElementById(id),video=$('cam'),canvas=$('hands'),ctx=canvas.getContext('2d'),cursor=$('handCursor');
 let tracker,stream,active=false,last=-1,cameraTargetZ=8,cameraDrift=0,rotation=0,tilt=0,scale=1,prev=null,twoPrev=null,pulseUntil=0,simRunning=true,voiceRecognition=null,voiceOn=false,pinchWas=false,gestureLatch='',gestureCooldown=0,swipeStart=null,currentModule='reactor',smoothCursor=null,lastPinchPoint=null,handScrollY=null,selectedPlanet=0,assemblyExploded=false,selectedComponent=0,booted=false,bootOverlay=null,audioCtx=null,lastVoiceText='',lastVoiceAt=0,openPalmFrames=0;
@@ -27,17 +28,17 @@ function resize(){camera.aspect=host.clientWidth/host.clientHeight;camera.update
 
 // ASTRA orbital mechanics subsystem (educational Newtonian two-body model).
 // SI units internally. Earth point-mass gravity; no atmosphere, J2, or third bodies.
-const ASTRA_MU=3.986004418e14,ASTRA_RE=6371000,ASTRA_STEP=2;
+const ASTRA_MU=EARTH.mu,ASTRA_RE=EARTH.meanRadius,ASTRA_STEP=2;
 let astraState=null,astraTrail=[],astraRunning=true,astraAccumulator=0,astraWallLast=0,astraLastTelemetry=0;
 const astraCanvas=document.createElement('canvas');astraCanvas.id='astraOrbitCanvas';astraCanvas.setAttribute('aria-label','Earth-centred orbital trajectory plot');host.appendChild(astraCanvas);
 const astraCtx=astraCanvas.getContext('2d');
-function astraAccel(p){const r2=p.x*p.x+p.y*p.y,r=Math.sqrt(r2),k=-ASTRA_MU/(r2*r);return{x:p.x*k,y:p.y*k}}
-function astraEnergy(s){return .5*(s.v.x*s.v.x+s.v.y*s.v.y)-ASTRA_MU/Math.hypot(s.p.x,s.p.y)}
+function astraAccel(p){return gravitationalAcceleration(p,ASTRA_MU)}
+function astraEnergy(s){return specificOrbitalEnergy(s.p,s.v,ASTRA_MU)}
 function astraStep(s,dt){const a=astraAccel(s.p),p={x:s.p.x+s.v.x*dt+.5*a.x*dt*dt,y:s.p.y+s.v.y*dt+.5*a.y*dt*dt},b=astraAccel(p);return{p,v:{x:s.v.x+.5*(a.x+b.x)*dt,y:s.v.y+.5*(a.y+b.y)*dt},t:s.t+dt}}
 function astraClass(e){const threshold=ASTRA_MU/ASTRA_RE*.0005;return e < -threshold?'BOUND / ELLIPTIC':e > threshold?'UNBOUND / ESCAPE':'NEAR PARABOLIC'}
 function astraFormat(n,d=2){return Number.isFinite(n)?n.toFixed(d):'—'}
 function astraUi(){return{id:'cosmosControls',alt:$('astraAltitude'),speed:$('astraSpeed'),scale:$('astraTimeScale'),altLabel:$('astraAltitudeLabel'),speedLabel:$('astraSpeedLabel'),scaleLabel:$('astraTimeScaleLabel'),circular:$('astraCircular'),escape:$('astraEscape'),klass:$('astraClass'),readout:$('astraReadout'),play:$('astraPlay'),reset:$('astraReset')}}
-function astraLabels(){const u=astraUi(),r=ASTRA_RE+Number(u.alt.value)*1000;u.altLabel.textContent=u.alt.value+' km';u.speedLabel.textContent=astraFormat(Number(u.speed.value))+' km/s';u.scaleLabel.textContent=u.scale.value+'×';u.circular.textContent=astraFormat(Math.sqrt(ASTRA_MU/r)/1000)+' km/s';u.escape.textContent=astraFormat(Math.sqrt(2*ASTRA_MU/r)/1000)+' km/s'}
+function astraLabels(){const u=astraUi(),r=ASTRA_RE+Number(u.alt.value)*1000;u.altLabel.textContent=u.alt.value+' km';u.speedLabel.textContent=astraFormat(Number(u.speed.value))+' km/s';u.scaleLabel.textContent=u.scale.value+'×';u.circular.textContent=astraFormat(circularOrbitSpeed(r,ASTRA_MU)/1000)+' km/s';u.escape.textContent=astraFormat(escapeSpeed(r,ASTRA_MU)/1000)+' km/s'}
 function astraReset(){const u=astraUi(),r=ASTRA_RE+Number(u.alt.value)*1000,v=Number(u.speed.value)*1000;astraState={p:{x:r,y:0},v:{x:0,y:v},t:0};astraTrail=[{x:r,y:0}];astraAccumulator=0;astraWallLast=0;astraRunning=true;u.play.textContent='Ⅱ PAUSE SIMULATION';astraLabels();astraTelemetry()}
 function astraTelemetry(){if(!astraState)return;const u=astraUi(),r=Math.hypot(astraState.p.x,astraState.p.y),v=Math.hypot(astraState.v.x,astraState.v.y),e=astraEnergy(astraState);u.klass.textContent=astraClass(e);const hh=Math.floor(astraState.t/3600),mm=Math.floor(astraState.t%3600/60),ss=Math.floor(astraState.t%60);u.readout.textContent='ALTITUDE: '+astraFormat((r-ASTRA_RE)/1000,1)+' km\\nVELOCITY: '+astraFormat(v/1000,3)+' km/s\\nSPECIFIC ENERGY: '+astraFormat(e/1e6,2)+' MJ/kg\\nELAPSED: '+[hh,mm,ss].map(n=>String(n).padStart(2,'0')).join(':')}
 function astraResize(){const rect=host.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,1.5);astraCanvas.width=Math.max(1,Math.floor(rect.width*d));astraCanvas.height=Math.max(1,Math.floor(rect.height*d));astraCanvas.style.width='100%';astraCanvas.style.height='100%';astraCtx.setTransform(d,0,0,d,0,0)}
