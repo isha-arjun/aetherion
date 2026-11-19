@@ -1,0 +1,27 @@
+name: Aerospace engineering validation
+
+on:
+  push:
+    paths:
+      - "engineering/**"
+      - "package.json"
+      - ".github/workflows/engineering-tests.yml"
+  pull_request:
+    paths:
+      - "engineering/**"
+      - "package.json"
+      - ".github/workflows/engineering-tests.yml"
+  workflow_dispatch:
+
+jobs:
+  orbital-mechanics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run engineering verification tests
+        run: npm test
