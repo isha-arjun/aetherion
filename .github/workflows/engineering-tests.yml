@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: 22
       - name: Check browser application JavaScript syntax
-        run: node --check main.js && node --check engineering/src/academy.js && node --check engineering/src/learning-mode.js
+        run: node --check main.js && node --check engineering/src/academy.js && node --check engineering/src/learning-mode.js && node --check engineering/src/course-content.js
       - name: Run engineering verification tests
         run: npm test
