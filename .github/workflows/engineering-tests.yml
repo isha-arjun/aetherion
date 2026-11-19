@@ -5,6 +5,8 @@ on:
     paths:
       - "engineering/**"
       - "package.json"
+      - "main.js"
+      - "index.html"
       - ".github/workflows/engineering-tests.yml"
   pull_request:
     paths:
