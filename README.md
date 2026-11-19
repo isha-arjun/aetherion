@@ -1,49 +1,56 @@
-# AETHERION — Aerospace Engineering Environment
+# AETHERION — Aerospace Engineering Lab
 
-Aetherion is a cinematic, browser-based engineering environment evolving into an educational aerospace simulation workspace. It preserves its original interactive showcase while introducing ASTRA, a physics-based orbital mechanics lab.
+Aetherion is an educational aerospace engineering software project. Its cinematic interface is a front end; the engineering calculations live in a separate, testable software core.
 
-## Open the application
+## Current engineering capability: ASTRA
 
-- Production site: https://aetherion-clear-board.vercel.app
-- GitHub repository: https://github.com/isha-arjun/aetherion
+ASTRA is an Earth-centred orbital mechanics module implementing:
 
-The app is a static browser experience. No server, API key, or hardware is needed to explore the simulation. Camera and microphone are optional.
+- Two-dimensional Newtonian point-mass gravity
+- SI-unit state vectors and validated inputs
+- Velocity-Verlet numerical propagation
+- Specific orbital energy and angular momentum
+- Osculating eccentricity, semi-major axis, periapsis and apoapsis
+- Circular speed, escape speed and orbital period
+- Ideal impulsive Hohmann transfer calculations between circular coplanar orbits
+- Live trajectory visualization and orbital telemetry
 
-## Core modules
+The UI imports its physics functions from `engineering/src/orbital-mechanics.js`; the interface does not maintain a separate copy of the equations.
 
-1. **Reactor Laboratory** — the original fictional energy-core visual experiment. Its telemetry is illustrative, not physical engineering data.
-2. **Spatial Engineering Table** — interactive modular assembly with component inspection, explode/reassemble, and gesture-friendly manipulation.
-3. **ASTRA Orbital Dynamics** — an Earth-centred two-body orbital simulator with adjustable initial altitude and tangential speed, adjustable time scale, play/pause/reset, trajectory plotting, and live telemetry.
-4. **Intelligence Core** — local subsystem diagnostic log and demonstration sequence. It does not call an external AI model.
-5. **Black Box Archive** — unlockable experiment records.
+## Engineering verification
 
-## ASTRA model
+Run the test suite with Node.js 20 or later:
 
-ASTRA integrates Newtonian point-mass gravity using a velocity-Verlet method. State vectors are represented in SI units, with Earth's standard gravitational parameter:
+```sh
+npm test
+```
 
-- μ = 3.986004418 × 10^14 m³/s²
-- Earth reference radius: 6,371,000 m
-- Fixed simulation step: 2 seconds
+GitHub Actions runs the same suite when engineering code, UI integration, or test configuration changes. Tests cover analytical reference values, gravity direction, circular-orbit elements, numerical energy/angular-momentum conservation, Hohmann transfer outputs, and invalid inputs.
 
-The initial state is circularly tangential at the selected altitude. The interface shows circular speed, escape speed, specific orbital energy, estimated orbit class, current altitude, current speed, and elapsed simulation time.
+- [Engineering model and assumptions](engineering/README.md)
+- [Verification plan](engineering/VALIDATION.md)
+- [ASTRA orbital mechanics source](engineering/src/orbital-mechanics.js)
+- [Automated tests](engineering/tests/orbital-mechanics.test.js)
 
-### Model limitations
+## Architecture
 
-The educational model assumes a spherical point-mass Earth and a massless spacecraft. It does not include atmospheric drag, Earth oblateness (J2), third-body perturbations, solar radiation pressure, thrust, finite-burn guidance, or relativistic effects. It is not a flight-qualified tool and must not be used for real mission planning, navigation, safety analysis, or operational decisions.
+```
+Aetherion
+├── index.html                 Browser engineering interface
+├── main.js                    Three.js visuals, controls, ASTRA presentation
+├── style.css                  Responsive interface styling
+├── engineering/
+│   ├── src/orbital-mechanics.js  Independent physics calculation library
+│   ├── tests/                    Numerical and analytical verification
+│   ├── README.md                 Model assumptions and conventions
+│   └── VALIDATION.md             Verification plan
+└── .github/workflows/            Continuous integration
+```
 
-## Interaction
+## Model assumptions and limitations
 
-- The existing optical interface can use optional local browser hand tracking.
-- Voice commands are optional and use the browser's Web Speech API where available.
-- Mouse and touch controls remain available.
-- Cinematic Mode remains available for full-screen presentation.
+ASTRA currently models a massless spacecraft under a spherical point-mass Earth. It omits atmospheric drag, Earth oblateness (J2), third-body gravity, solar radiation pressure, thrust, finite-burn guidance, attitude dynamics, thermal loads, structural analysis, propulsion performance, and uncertainty propagation.
 
-Camera and voice permissions should only be granted when the user chooses to enable those features. Hand tracking depends on camera quality, lighting, and browser support.
+The Hohmann transfer calculator assumes circular coplanar orbits and ideal instantaneous impulses. These are textbook preliminary-design models, not operational manoeuvre recommendations.
 
-## Development
-
-This is a static site using Three.js from a public CDN and optional MediaPipe hand tracking. Open `index.html` through a local static server or use the Vercel deployment. Camera access requires HTTPS or localhost.
-
-## Simulation integrity
-
-Aetherion is a showcase and educational environment. ASTRA's two-body module contains real Newtonian equations and documented assumptions, but it is not a substitute for validated aerospace engineering software. Other legacy modules intentionally remain fictional visual simulations.
+This is an educational engineering project, not flight-qualified software. Do not use its outputs for real mission design, navigation, safety-critical analysis, or operational decisions. Model expansion requires independent reference comparisons, numerical convergence studies, and documented validation.
