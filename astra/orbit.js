@@ -77,7 +77,7 @@ function resize() {
 function draw() {
   const w=canvas.clientWidth,h=canvas.clientHeight,cx=w/2,cy=h/2;
   ctx.clearRect(0,0,w,h);
-  const maxR=Math.max(2.8e7,Math.hypot(state.p.x,state.p.y)*1.15);
+  const maxR=Math.max(EARTH_RADIUS*1.35,Math.hypot(state.p.x,state.p.y)*1.25);
   const scale=Math.min(w,h)*.43/maxR;
   // Subtle plotting grid.
   ctx.strokeStyle="rgba(110,160,195,.09)";ctx.lineWidth=1;
