@@ -1,6 +1,12 @@
-# AETHERION — Aerospace Engineering Lab
+# AETHERION — Engineering & Robotics Laboratory
 
-Aetherion is an educational aerospace engineering software project. Its cinematic interface is a front end; the engineering calculations live in a separate, testable software core.
+Aetherion is a project-led engineering learning environment spanning robotics, electronics, software, mechanical design, AI and aerospace systems. It combines interactive visualisations, a tested orbital mechanics core, and an Engineering Academy that turns each discipline into practical milestones and capstone builds. It is designed to develop engineering competence through building, testing, debugging and documentation—not through physics-heavy theory alone.
+
+## Engineering Academy
+
+The Academy contains six learning paths: Robotics & Control, Electronics & Embedded Systems, Software Engineering, Mechanical Design & CAD, AI/Vision & Autonomy, and Aerospace & Systems. Each path has practical milestones, while the capstone queue includes a robot-arm digital twin, smart sorting system, autonomous explorer simulation, SCRIPTOR writing-robot design, and an integrated engineering portfolio. Checklist progress is saved locally in the browser; it is a learning tracker, not an externally verified qualification.
+
+The curriculum is project-first. Physics is introduced when needed to model or explain a system. The strongest evidence of progress is a working prototype or simulation, tests, design notes, and a clear technical review.
 
 ## Current engineering capability: ASTRA
 
