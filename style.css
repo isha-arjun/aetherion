@@ -132,3 +132,46 @@ body.cinema-mode .moduleOverlay .tag,body.cinema-mode .moduleOverlay .hint{backd
 
 /* LEARNING MODE — structured engineering course */
 #learningStageList{display:grid;gap:7px;margin:12px 0}.learningStage{border:1px solid #285064;background:#071522;padding:10px}.learningStage.active{border-color:#70e5ff;box-shadow:inset 2px 0 #70e5ff}.learningStage button{width:100%;text-align:left;border:0;background:transparent;color:#b9eefa;padding:0;font:600 13px 'Barlow Condensed';letter-spacing:.8px}.learningStage small{display:block;color:#7397a6;font:8px 'IBM Plex Mono';margin-top:5px;line-height:1.5}.learningStage .bar{margin-top:8px}.learningLesson{padding:14px;line-height:1.7}.learningLesson h3{font:600 19px 'Barlow Condensed';letter-spacing:1px;color:#d4f7ff;margin:7px 0}.learningLesson h4{font:600 13px 'Barlow Condensed';color:#80e8ff;margin:12px 0 5px}.learningLesson p,.learningLesson li{font:9px/1.75 'IBM Plex Mono';color:#9bbbc8}.learningLesson ul{padding-left:17px}.learningLesson a{color:#79e5ff;text-decoration:underline}.learningLesson .lessonMeta{font-size:8px;letter-spacing:1px;color:#70e5ff}.learningEvidence textarea{width:100%;background:#06111d;color:#d8edf5;border:1px solid #285064;padding:10px;font:9px/1.6 'IBM Plex Mono';resize:vertical}.learningEvidence textarea:focus{outline:1px solid #70e5ff}.learningStage button:focus-visible{outline:1px solid #70e5ff}
+
+
+/* PROTOTYPE 008 — dedicated full-course workspace and direct lesson navigation */
+.mode-switch{display:flex;align-items:center;gap:5px;padding:4px;border:1px solid #39738a66;background:#04101b}
+.mode-toggle{padding:9px 12px;border:1px solid transparent;background:transparent;color:#7699a8;font:600 9px 'Barlow Condensed';letter-spacing:1.4px;white-space:nowrap}
+.mode-toggle.active{color:#d8fbff;border-color:#70e5ff;background:linear-gradient(110deg,#10344a,#0a1b2b);box-shadow:0 0 16px #36cfff2a}
+body.learning-mode #modules{display:none}
+body.learning-mode main{display:block;min-height:calc(100vh - 100px);padding:14px 3vw}
+body.learning-mode .left,body.learning-mode .viewport{display:none!important}
+body.learning-mode .right{display:block;width:100%;max-width:1200px;margin:0 auto;padding:clamp(16px,3vw,34px);border-color:#55c9e955}
+body.learning-mode #controls{grid-column:auto}
+body.learning-mode #learningControls{display:block!important;max-width:100%}
+body.learning-mode #learningControls>h2{text-align:left;font-size:clamp(24px,3vw,36px);margin:8px 0}
+body.learning-mode #learningControls>p.muted{font-size:10px!important;max-width:760px}
+body.learning-mode .academyProgress{max-width:100%;padding:16px}
+body.learning-mode #learningStageList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+body.learning-mode .learningStage{padding:14px;min-width:0}
+body.learning-mode .learningStage .stageHeading{display:block;text-align:left;width:100%;padding:0}
+body.learning-mode .learningStage .stageHeading>span:first-child{display:block;font:600 16px 'Barlow Condensed';color:#c9f3ff;line-height:1.35}
+body.learning-mode .learningStage .stageHeading>small{font:8px 'IBM Plex Mono';color:#70e5ff}
+body.learning-mode .learningStage .stageGoal{display:block;color:#829fac;font:9px/1.6 'IBM Plex Mono';margin-top:8px}
+body.learning-mode .learningStage .bar{display:block;margin:10px 0 0;height:4px}
+.lessonPicker{display:grid;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid #28506488}
+.lessonPick{display:grid;grid-template-columns:28px 1fr;gap:3px 8px;align-items:center;width:100%;padding:9px;text-align:left;border:1px solid #23465a;background:#06111d;color:#a9ceda;font:9px/1.4 'IBM Plex Mono'}
+.lessonPick>span{grid-row:span 2;color:#70e5ff;font:600 13px 'Barlow Condensed'}
+.lessonPick em{font-style:normal;color:#6e94a3;font-size:7px;letter-spacing:.6px}
+.lessonPick.selected{border-color:#70e5ff;background:#0d293b;color:#e0faff}
+body.learning-mode .learningLesson{padding:clamp(16px,3vw,28px);margin-top:18px}
+body.learning-mode .learningLesson h3{font-size:clamp(22px,3vw,30px)}
+body.learning-mode .learningLesson p,body.learning-mode .learningLesson li{font-size:11px;line-height:1.85}
+body.learning-mode .learningLesson h4{font-size:15px}
+body.learning-mode .learningEvidence{max-width:900px;margin-top:18px}
+body.learning-mode .learningEvidence textarea{font-size:11px;min-height:120px}
+body.learning-mode #learningComplete,body.learning-mode #learningReset{max-width:320px;display:inline-block;margin:10px 10px 0 0}
+body.learning-mode .learningLesson .learningNav{display:flex;gap:10px;margin-top:18px}
+body.learning-mode .learningLesson .learningNav button{flex:1}
+@media(max-width:760px){
+ .header-actions{gap:5px}.mode-switch{gap:2px}.mode-toggle{padding:8px 7px;font-size:8px;letter-spacing:.5px}
+ body.learning-mode main{padding:8px}
+ body.learning-mode #learningStageList{grid-template-columns:1fr}
+ body.learning-mode .right{padding:14px}
+ body.learning-mode .learningLesson .learningNav{flex-direction:column}
+}
