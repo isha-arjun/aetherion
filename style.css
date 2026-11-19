@@ -119,3 +119,7 @@ body.cinema-mode .moduleOverlay .tag,body.cinema-mode .moduleOverlay .hint{backd
 
 /* FIX: boot overlay must respect the shared hidden utility class */
 .boot-overlay.hidden{display:none!important}
+
+/* ASTRA orbital dynamics canvas: replaces illustrative cosmic map with a numerical orbit plot. */
+#astraOrbitCanvas{display:none;position:absolute;inset:0;z-index:1;pointer-events:none}
+#astraOrbitCanvas.astra-active{display:block}
