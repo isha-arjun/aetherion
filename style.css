@@ -175,3 +175,15 @@ body.learning-mode .learningLesson .learningNav button{flex:1}
  body.learning-mode .right{padding:14px}
  body.learning-mode .learningLesson .learningNav{flex-direction:column}
 }
+
+/* SELF-CONTAINED COURSE CONTENT */
+body.learning-mode .learningLesson h4{margin-top:24px;padding-bottom:7px;border-bottom:1px solid #28506488;letter-spacing:1.2px}
+body.learning-mode .learningLesson ul{padding-left:22px;margin:10px 0}
+body.learning-mode .learningLesson li{padding:4px 0;font-size:11px;line-height:1.85}
+body.learning-mode .learningLesson strong{color:#d2f7ff}
+body.learning-mode .courseQuiz{border:1px solid #39738a88;background:#06111d;padding:16px;margin:12px 0}
+body.learning-mode .quizOption{display:flex;align-items:flex-start;gap:9px;padding:10px;margin:6px 0;border:1px solid #23465a;background:#081725;color:#a9ceda;font:10px/1.6 'IBM Plex Mono';cursor:pointer}
+body.learning-mode .quizOption input{accent-color:#70e5ff;margin-top:2px}
+body.learning-mode .quizFeedback{min-height:24px;margin-top:10px;padding:8px;color:#a9ceda;font:10px/1.7 'IBM Plex Mono'}
+body.learning-mode .quizFeedback.correct{border-left:2px solid #62eac0;color:#a8f2d8;background:#0b2a25}
+body.learning-mode .quizFeedback.tryAgain{border-left:2px solid #e8b65b;color:#f3d69b;background:#2a2110}
