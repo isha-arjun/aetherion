@@ -1,0 +1,13 @@
+{
+  "name": "aetherion-aerospace-lab",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Educational aerospace engineering simulations and verified orbital mechanics",
+  "scripts": {
+    "test": "node --test engineering/tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
