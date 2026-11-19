@@ -1,65 +1,49 @@
-# AETHERION — Prototype 007
+# AETHERION — Aerospace Engineering Environment
 
-A cinematic, browser-based interactive engineering environment designed as a showcase prototype. Five connected simulated subsystems share one 3D environment, webcam hand tracking, and optional voice commands.
+Aetherion is a cinematic, browser-based engineering environment evolving into an educational aerospace simulation workspace. It preserves its original interactive showcase while introducing ASTRA, a physics-based orbital mechanics lab.
 
-## First launch
+## Open the application
 
-1. Open the project in VS Code and run `index.html` with Live Server.
-2. Select **INITIALIZE OPTICAL LINK** and allow camera access.
-3. Hold an **open palm** clearly in view of the camera.
-4. AETHERION runs its cinematic boot sequence: reactor, spatial table, cosmic navigation, intelligence core, and black box.
-5. Select **OPEN PILOT GUIDE** at any time for an in-app control reference.
+- Production site: https://aetherion-clear-board.vercel.app
+- GitHub repository: https://github.com/isha-arjun/aetherion
 
-## Cinematic presentation (Prototype 007)
+The app is a static browser experience. No server, API key, or hardware is needed to explore the simulation. Camera and microphone are optional.
 
-Cinematic Mode adds a distant ringed world, a moon, a drifting debris belt, layered orbital arcs, atmospheric light and a restrained camera drift. The background environment appears in Cinematic Mode to preserve performance during normal interaction. Each module uses a slightly different camera framing. The scene is procedural and illustrative, not a real astronomical rendering.
+## Core modules
 
-## Modules
+1. **Reactor Laboratory** — the original fictional energy-core visual experiment. Its telemetry is illustrative, not physical engineering data.
+2. **Spatial Engineering Table** — interactive modular assembly with component inspection, explode/reassemble, and gesture-friendly manipulation.
+3. **ASTRA Orbital Dynamics** — an Earth-centred two-body orbital simulator with adjustable initial altitude and tangential speed, adjustable time scale, play/pause/reset, trajectory plotting, and live telemetry.
+4. **Intelligence Core** — local subsystem diagnostic log and demonstration sequence. It does not call an external AI model.
+5. **Black Box Archive** — unlockable experiment records.
 
-1. **Reactor Laboratory** — adjust simulated output and containment, trigger energy pulses, pause/resume.
-2. **Spatial Engineering Table** — rotate a 3D modular assembly, select components using the UI or hand pinch, explode/reassemble and inspect components.
-3. **Cosmic Navigation** — explore a procedural star field, select three fictional showcase worlds, inspect target records and activate a simulated wormhole.
-4. **Intelligence Core** — local orchestration state, diagnostic scan, event log and a guided demonstration sequence. No external AI model or API.
-5. **Black Box** — unlockable experiment records populated by discoveries made in the other modules.
+## ASTRA model
 
-## Hand controls
+ASTRA integrates Newtonian point-mass gravity using a velocity-Verlet method. State vectors are represented in SI units, with Earth's standard gravitational parameter:
 
-- **Open palm before boot:** launch the cinematic startup sequence.
-- **Index finger:** move the on-screen cursor.
-- **Pinch thumb + index:** click buttons and controls.
-- **Pinch + move:** rotate the active 3D environment.
-- **Two hands:** spread/close to scale the reactor or assembly.
-- **Open-palm swipe left/right:** switch modules after boot.
-- **Thumbs-up:** trigger an energy pulse.
-- **Closed fist:** pause/resume the simulation.
-- **V sign:** context action — deploy a satellite, explode the assembly, or activate the wormhole.
+- μ = 3.986004418 × 10^14 m³/s²
+- Earth reference radius: 6,371,000 m
+- Fixed simulation step: 2 seconds
 
-Hand recognition is heuristic and depends on camera angle, lighting, distance and hand visibility. A mouse and keyboard remain available as fallback controls.
+The initial state is circularly tangential at the selected altitude. The interface shows circular speed, escape speed, specific orbital energy, estimated orbit class, current altitude, current speed, and elapsed simulation time.
 
-## Voice commands
+### Model limitations
 
-Use **ENABLE VOICE COMMANDS** and allow microphone access. Example phrases:
+The educational model assumes a spherical point-mass Earth and a massless spacecraft. It does not include atmospheric drag, Earth oblateness (J2), third-body perturbations, solar radiation pressure, thrust, finite-burn guidance, or relativistic effects. It is not a flight-qualified tool and must not be used for real mission planning, navigation, safety analysis, or operational decisions.
 
-- Navigation: “open reactor”, “open spatial table”, “cosmic navigation”, “intelligence core”, “black box”.
-- Spatial: “explode assembly”, “reassemble”, “inspect component”.
-- Cosmic: “show Kepler”, “Nereid”, “Pyra”, “wormhole”.
-- Intelligence: “run diagnostics”, “system scan”, “demonstration sequence”.
-- Reactor: “pulse”, “reset core”, “pause simulation”, “resume simulation”, “power up”, “power down”.
-- Objects: “add satellite”, “add orb”, “clear additions”.
-- Help: “show guide” or “commands”.
+## Interaction
 
-The recognizer uses the browser's Web Speech API where available. Browser support, microphone permissions, internet connection and recognition quality vary. Chrome is recommended. It may rely on the browser's speech service; voice audio is not guaranteed to be processed locally.
+- The existing optical interface can use optional local browser hand tracking.
+- Voice commands are optional and use the browser's Web Speech API where available.
+- Mouse and touch controls remain available.
+- Cinematic Mode remains available for full-screen presentation.
 
-## Feedback
+Camera and voice permissions should only be granted when the user chooses to enable those features. Hand tracking depends on camera quality, lighting, and browser support.
 
-Interactions trigger a visual response and a short synthesized UI tone. On devices/browser combinations that support the Vibration API, compatible interactions also request a brief vibration. Most desktop computers do not have vibration hardware, so the visual/audio feedback is the fallback.
+## Development
 
-## Run locally
+This is a static site using Three.js from a public CDN and optional MediaPipe hand tracking. Open `index.html` through a local static server or use the Vercel deployment. Camera access requires HTTPS or localhost.
 
-Use VS Code Live Server on `index.html`. Camera access requires localhost or HTTPS; opening the file directly with `file://` will not work. The first launch downloads Three.js, MediaPipe and its hand-landmarker model from public CDNs, so an internet connection is required.
+## Simulation integrity
 
-## Privacy and simulation boundaries
-
-Camera frames are processed locally in the browser by MediaPipe; this app does not upload or record camera video. Voice recognition is optional and may use the browser's speech service. The interface uses local JavaScript state and procedural 3D scenes, not a connected AI model.
-
-**Important:** This is a cinematic interactive showcase, not yet an engineering simulator. Reactor output, containment, planetary data, materials, component properties and all engineering telemetry are fictional demonstration values. They must not be used for real design, safety analysis, manufacturing, or operational decisions.
+Aetherion is a showcase and educational environment. ASTRA's two-body module contains real Newtonian equations and documented assumptions, but it is not a substitute for validated aerospace engineering software. Other legacy modules intentionally remain fictional visual simulations.
