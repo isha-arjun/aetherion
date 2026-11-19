@@ -1,5 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import {initAcademy} from './engineering/src/academy.js';
+initAcademy();
 import {EARTH,gravitationalAcceleration,velocityVerlet,circularOrbitSpeed,escapeSpeed,specificOrbitalEnergy,orbitalElements,hohmannTransfer} from './engineering/src/orbital-mechanics.js';
 let FilesetResolver,HandLandmarker;
 const $=id=>document.getElementById(id),video=$('cam'),canvas=$('hands'),ctx=canvas.getContext('2d'),cursor=$('handCursor');
