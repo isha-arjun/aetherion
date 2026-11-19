@@ -25,5 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check browser application JavaScript syntax
+        run: node --check main.js
       - name: Run engineering verification tests
         run: npm test
