@@ -9,9 +9,9 @@ const close=(actual,expected,tolerance)=>assert.ok(Math.abs(actual-expected)<=to
 
 test("Earth circular-orbit reference values at 400 km",()=>{
   const r=EARTH.meanRadius+400_000;
-  close(circularOrbitSpeed(r),7_668.6,1.0);
-  close(escapeSpeed(r),10_845,2);
-  close(circularOrbitPeriod(r),5_550,5);
+  close(circularOrbitSpeed(r),7_672.6,0.1);
+  close(escapeSpeed(r),10_850.7,0.1);
+  close(circularOrbitPeriod(r),5_544.9,0.1);
 });
 
 test("gravity points toward the central body and follows inverse-square magnitude",()=>{
